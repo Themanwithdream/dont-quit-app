@@ -1017,11 +1017,36 @@ function initDefaults(){
   const now=new Date();
   const pad=n=>String(n).padStart(2,'0');
   const ds=now.toISOString().split('T')[0];
-  now.setMinutes(now.getMinutes()+30);
-  const ts=`${pad(now.getHours())}:${pad(now.getMinutes())}`;
-  ['m-date','h-date','ev-d'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=ds;});
-  ['m-time','h-time'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=ts;});
-  const ev=document.getElementById('ev-tm');if(ev)ev.value=ts;
+  const nowPlus30=new Date(now.getTime()+30*60000);
+  const ts=`${pad(nowPlus30.getHours())}:${pad(nowPlus30.getMinutes())}`;
+  // Set all date/time inputs with today's date and current time + 30min
+  setTimeout(()=>{
+    ['m-date','h-date','ev-d'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el&&!el.value) el.value=ds;
+    });
+    ['m-time','h-time'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el&&!el.value) el.value=ts;
+    });
+    const ev=document.getElementById('ev-tm');
+    if(ev&&!ev.value) ev.value=ts;
+  },300);
+}
+
+// Also refresh date/time defaults every time the once-block is shown
+function showOnceBlock(blockId, dateId, timeId){
+  const now=new Date();
+  const pad=n=>String(n).padStart(2,'0');
+  const ds=now.toISOString().split('T')[0];
+  const nowPlus30=new Date(now.getTime()+30*60000);
+  const ts=`${pad(nowPlus30.getHours())}:${pad(nowPlus30.getMinutes())}`;
+  const block=document.getElementById(blockId);
+  if(block) block.style.display='block';
+  const de=document.getElementById(dateId);
+  const te=document.getElementById(timeId);
+  if(de) de.value=ds;
+  if(te) te.value=ts;
 }
 
 /* ═══ CLOCK ═══ */
@@ -1072,6 +1097,16 @@ function doCI(){
 function renderCats(){
   const row=document.getElementById('cat-row');
   if(!row)return;
+  // Make sure cats array has values
+  if(!cats||cats.length===0){
+    cats=[
+      {id:'work',label:'💼 Work',color:'#0EA5E9'},
+      {id:'health',label:'🏃 Health',color:'#059669'},
+      {id:'personal',label:'⭐ Personal',color:'#EC4899'},
+      {id:'learning',label:'📚 Learning',color:'#7C3AED'},
+    ];
+  }
+  if(!mCat) mCat=cats[0].id;
   row.innerHTML=cats.map(c=>`<div class="ppill ${mCat===c.id?'on':''}" data-c="${c.id}" onclick="selCat('${c.id}')">${c.label}</div>`).join('');
 }
 function selCat(id){mCat=id;renderCats();}
@@ -1117,7 +1152,11 @@ document.getElementById('m-rtype').addEventListener('click',e=>{
   document.querySelectorAll('#m-rtype .ppill').forEach(x=>x.classList.remove('on'));
   p.classList.add('on');mRtype=p.dataset.v;
   document.getElementById('m-rep-block').style.display=mRtype==='repeat'?'block':'none';
-  document.getElementById('m-once-block').style.display=mRtype==='once'?'block':'none';
+  if(mRtype==='once'){
+    showOnceBlock('m-once-block','m-date','m-time');
+  } else {
+    document.getElementById('m-once-block').style.display='none';
+  }
 });
 document.getElementById('m-irow').addEventListener('click',e=>{
   const p=e.target.closest('.ppill');if(!p)return;
@@ -1234,7 +1273,11 @@ document.getElementById('h-rtype').addEventListener('click',e=>{
   document.querySelectorAll('#h-rtype .ppill').forEach(x=>x.classList.remove('on'));
   p.classList.add('on');mHtype=p.dataset.v;
   document.getElementById('h-rep-block').style.display=mHtype==='repeat'?'block':'none';
-  document.getElementById('h-once-block').style.display=mHtype==='once'?'block':'none';
+  if(mHtype==='once'){
+    showOnceBlock('h-once-block','h-date','h-time');
+  } else {
+    document.getElementById('h-once-block').style.display='none';
+  }
 });
 document.getElementById('h-irow').addEventListener('click',e=>{const p=e.target.closest('.ppill');if(!p)return;document.querySelectorAll('#h-irow .ppill').forEach(x=>x.classList.remove('on'));p.classList.add('on');hInterval=parseInt(p.dataset.v);});
 
