@@ -6,13 +6,55 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#04040E">
-<title>DON'T QUIT</title>
+<title>SUPER DISCIPLINE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script>
+/* ═══ FIREBASE INIT ═══ */
+let db, auth, firebaseReady = false;
+function initFirebase() {
+  try {
+    const firebaseConfig = {
+      apiKey: "AIzaSyAR0PkPT3Cj6txVDFPLAPzqnLG1qDFxyEI",
+      authDomain: "dont-quit-app.firebaseapp.com",
+      projectId: "dont-quit-app",
+      storageBucket: "dont-quit-app.firebasestorage.app",
+      messagingSenderId: "34902691138",
+      appId: "1:34902691138:web:77964d58543653f00b0cdb"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+    auth = firebase.auth();
+    firebaseReady = true;
+
+    // Listen for auth state changes
+    auth.onAuthStateChanged(async (firebaseUser) => {
+      if (firebaseUser) {
+        U = {
+          name: firebaseUser.displayName || firebaseUser.email.split('@')[0],
+          email: firebaseUser.email,
+          joined: new Date(firebaseUser.metadata.creationTime).toLocaleDateString('en-US', {month:'long', year:'numeric'}),
+          isGoogle: firebaseUser.providerData[0]?.providerId === 'google.com'
+        };
+        if (document.getElementById('pg-onboard').classList.contains('on')) {
+          document.getElementById('pg-onboard').classList.remove('on');
+          document.getElementById('pg-app').classList.add('on');
+          await load();
+          boot();
+        }
+      }
+    });
+  } catch(e) {
+    console.warn('Firebase init failed, running in offline mode:', e.message);
+    firebaseReady = false;
+  }
+}
+window.addEventListener('load', initFirebase);
+</script>
 <style>
 :root{
   --bg:#04040E;--bg2:#08081A;--c1:#0C0C1E;--c2:#111128;--c3:#17172E;--c4:#1E1E38;
@@ -90,9 +132,9 @@ input,textarea,select,button{font-family:var(--fh);-webkit-appearance:none;appea
     radial-gradient(ellipse 100% 60% at 50% -5%,rgba(255,92,46,.18) 0%,transparent 65%),
     radial-gradient(ellipse 60% 40% at 80% 80%,rgba(124,58,237,.1) 0%,transparent 60%),
     var(--bg);
-  min-height:100vh;padding:24px 20px;padding-top:calc(var(--st) + 24px);
+  min-height:100vh;padding:40px 20px;padding-top:calc(var(--st) + 40px);
 }
-.ob-wrap{width:100%;max-width:400px;text-align:center}
+.ob-wrap{width:100%;max-width:520px;text-align:center}
 .ob-flame{
   width:84px;height:84px;border-radius:28px;margin:0 auto 20px;
   background:linear-gradient(145deg,var(--or),var(--gold));
@@ -117,6 +159,45 @@ input,textarea,select,button{font-family:var(--fh);-webkit-appearance:none;appea
 .ob-switch span{color:var(--or);cursor:pointer;font-weight:700}
 .ob-divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--tx3);font-size:12px}
 .ob-divider::before,.ob-divider::after{content:'';flex:1;height:1px;background:var(--ln)}
+
+/* ── DESKTOP / LAPTOP RESPONSIVE ── */
+@media (min-width: 768px) {
+  .ob-wrap { max-width: 600px; }
+  .ob-title { font-size: 52px; }
+  .ob-sub { font-size: 17px; }
+  .ob-flame { width: 96px; height: 96px; font-size: 50px; border-radius: 32px; }
+  .ob-feat { padding: 18px 20px; }
+  .ob-feat-ico { font-size: 28px; }
+  .ob-feat-title { font-size: 16px; }
+  .ob-feat-txt { font-size: 14px; }
+  .ob-card { padding: 36px 32px; }
+  .ob-features { gap: 12px; margin-bottom: 36px; }
+
+  /* App shell wider on desktop */
+  #pg-app { max-width: 100%; }
+  .wrap { max-width: 680px; margin: 0 auto; }
+  .bnav { max-width: 680px; left: 50%; transform: translateX(-50%); border-radius: 20px 20px 0 0; }
+  .topbar { max-width: 680px; margin: 0 auto; border-radius: 0 0 20px 20px; }
+  .topbar-logo { font-size: 22px; }
+
+  /* Bigger text on desktop */
+  .hn { font-size: 30px; }
+  .snum { font-size: 56px; }
+  .st { font-size: 20px; }
+  .mtxt { font-size: 15px; }
+  .hnm { font-size: 16px; }
+  .hst { font-size: 13px; }
+  .ntit { font-size: 15px; }
+  .nbody { font-size: 13px; }
+  .rpct { font-size: 22px; }
+  .btn { font-size: 15px; padding: 14px 22px; }
+  .fi, .ta, .sel { font-size: 15px; }
+  .ppill { font-size: 13px; padding: 9px 16px; }
+  .s3 { gap: 12px; }
+  .stats3 { gap: 12px; }
+  .sn2 { font-size: 32px; }
+  .stile { padding: 16px 12px; border-radius: 18px; }
+}
 
 /* form fields */
 .fl{margin-bottom:13px}
@@ -417,7 +498,7 @@ input[type="date"].dii:focus{border-color:var(--or)}
 <body>
 
 <!-- TOAST -->
-<div id="toast"><div class="ti" id="ti">🔥</div><div class="tb"><div class="tl">DON'T QUIT</div><div class="tm" id="tm"></div></div><div class="tc" onclick="tClose()">✕</div></div>
+<div id="toast"><div class="ti" id="ti">🔥</div><div class="tb"><div class="tl">SUPER DISCIPLINE</div><div class="tm" id="tm"></div></div><div class="tc" onclick="tClose()">✕</div></div>
 
 <!-- PROFILE SHEET -->
 <div class="psh" id="psh" onclick="pClose()">
@@ -433,7 +514,7 @@ input[type="date"].dii:focus{border-color:var(--or)}
   <div class="mbox" style="text-align:center">
     <div style="font-size:52px;margin-bottom:14px">🔔</div>
     <div class="mbox-title">Enable Notifications</div>
-    <div class="mbox-sub">DON'T QUIT needs permission to remind you at exactly the time you set — for missions, habits and events.<br><br><strong style="color:var(--tx)">Without this, reminders won't fire.</strong></div>
+    <div class="mbox-sub">SUPER DISCIPLINE needs permission to remind you at exactly the time you set — for missions, habits and events.<br><br><strong style="color:var(--tx)">Without this, reminders won't fire.</strong></div>
     <button class="btn b-or bw" onclick="reqPerm()" style="margin-bottom:10px">✅ Yes, Enable</button>
     <button class="btn b-gh bw" onclick="skipPerm()">Maybe Later</button>
   </div>
@@ -459,7 +540,7 @@ input[type="date"].dii:focus{border-color:var(--or)}
   <div class="ob-wrap">
     <div id="ob-hero">
       <div class="ob-flame">🔥</div>
-      <div class="ob-title">DON'T QUIT</div>
+      <div class="ob-title">SUPER DISCIPLINE</div>
       <div class="ob-sub">Beat laziness. Build discipline.<br>Achieve your dreams — one day at a time.</div>
       <div class="ob-features">
         <div class="ob-feat"><div class="ob-feat-ico">🎯</div><div><div class="ob-feat-title">Mission Tracker</div><div class="ob-feat-txt">Set daily missions with custom reminders</div></div></div>
@@ -511,7 +592,7 @@ input[type="date"].dii:focus{border-color:var(--or)}
 <!-- ═══════════ APP PAGE ═══════════ -->
 <div class="pg" id="pg-app">
   <div class="topbar">
-    <div class="topbar-logo">DON'T QUIT</div>
+    <div class="topbar-logo">SUPER DISCIPLINE</div>
     <div class="topbar-r">
       <div class="clk" id="clk">--:--</div>
       <div class="av" id="av" onclick="pOpen()">U</div>
@@ -862,40 +943,59 @@ function aTab(t){
 function aErr(m){const e=document.getElementById('aerr');e.textContent=m;e.style.display='block';}
 
 /* ═══ AUTH ═══ */
-function doSignIn(){
+async function doSignIn(){
   const em=document.getElementById('si-e').value.trim();
   const pw=document.getElementById('si-p').value;
   if(!em||!pw){aErr('Please fill in all fields.');return;}
-  const db=JSON.parse(localStorage.getItem('dq5_users')||'{}');
-  if(!db[em]){aErr('No account found. Sign up first.');return;}
-  if(db[em].pw!==pw){aErr('Incorrect password.');return;}
-  U=db[em];enter();
+  if(!firebaseReady){
+    // Offline fallback
+    const users=JSON.parse(localStorage.getItem('dq5_users')||'{}');
+    if(!users[em]){aErr('No account found. Sign up first.');return;}
+    if(users[em].pw!==pw){aErr('Incorrect password.');return;}
+    U=users[em];enter();return;
+  }
+  try{
+    await auth.signInWithEmailAndPassword(em,pw);
+  }catch(e){
+    if(e.code==='auth/user-not-found'||e.code==='auth/invalid-credential') aErr('No account found or wrong password.');
+    else if(e.code==='auth/wrong-password') aErr('Incorrect password.');
+    else aErr(e.message);
+  }
 }
-function doSignUp(){
+async function doSignUp(){
   const nm=document.getElementById('su-n').value.trim();
   const em=document.getElementById('su-e').value.trim();
   const pw=document.getElementById('su-p').value;
   if(!nm||!em||!pw){aErr('Please fill in all fields.');return;}
   if(pw.length<6){aErr('Password must be 6+ characters.');return;}
-  const db=JSON.parse(localStorage.getItem('dq5_users')||'{}');
-  if(db[em]){aErr('Account exists. Sign in instead.');return;}
-  U={name:nm,email:em,pw,joined:new Date().toLocaleDateString('en-US',{month:'long',year:'numeric'})};
-  db[em]=U;localStorage.setItem('dq5_users',JSON.stringify(db));enter();
+  if(!firebaseReady){
+    // Offline fallback
+    const users=JSON.parse(localStorage.getItem('dq5_users')||'{}');
+    if(users[em]){aErr('Account exists. Sign in instead.');return;}
+    U={name:nm,email:em,pw,joined:new Date().toLocaleDateString('en-US',{month:'long',year:'numeric'})};
+    users[em]=U;localStorage.setItem('dq5_users',JSON.stringify(users));enter();return;
+  }
+  try{
+    const cred=await auth.createUserWithEmailAndPassword(em,pw);
+    await cred.user.updateProfile({displayName:nm});
+  }catch(e){
+    if(e.code==='auth/email-already-in-use') aErr('Account exists. Sign in instead.');
+    else aErr(e.message);
+  }
 }
-function googleLogin(){
-  // Simulate Google login (real implementation needs Firebase/OAuth)
-  const name=prompt('Enter your name (Google Sign-In simulation):','');
-  if(!name||!name.trim()){return;}
-  const email=prompt('Enter your Google email:','');
-  if(!email||!email.trim()){return;}
-  U={name:name.trim(),email:email.trim().toLowerCase(),pw:'google',joined:new Date().toLocaleDateString('en-US',{month:'long',year:'numeric'}),isGoogle:true};
-  const db=JSON.parse(localStorage.getItem('dq5_users')||'{}');
-  if(!db[U.email]) db[U.email]=U;
-  localStorage.setItem('dq5_users',JSON.stringify(db));
-  enter();
+async function googleLogin(){
+  if(!firebaseReady){toast('⚠️','Google Sign In requires internet connection.');return;}
+  try{
+    const provider=new firebase.auth.GoogleAuthProvider();
+    await auth.signInWithPopup(provider);
+  }catch(e){
+    if(e.code==='auth/popup-blocked') aErr('Popup blocked. Please allow popups and try again.');
+    else aErr('Google sign in failed: '+e.message);
+  }
 }
 function demoLogin(){U={name:'Champion',email:'demo@dontquit.app',pw:'',joined:'Today'};enter();}
 function signOut(){
+  if(firebaseReady) auth.signOut().catch(()=>{});
   U=null;pClose();
   document.getElementById('pg-app').classList.remove('on');
   document.getElementById('pg-onboard').classList.add('on');
@@ -1392,7 +1492,7 @@ function startIntReminder(item,kind){
     if(!live){clearInterval(intTimers[item.id]);return;}
     const lbl=kind==='mission'?`⏰ "${item.text.slice(0,36)}" — do it NOW!`:`${item.emoji} "${item.name}" — don't skip!`;
     toast('⏰',lbl);
-    if(Notification.permission==='granted')try{new Notification("DON'T QUIT ⏰",{body:lbl,requireInteraction:true});}catch(e){}
+    if(Notification.permission==='granted')try{new Notification("SUPER DISCIPLINE ⏰",{body:lbl,requireInteraction:true});}catch(e){}
     else{let f=0;const o=document.title;const t=setInterval(()=>{document.title=f++%2===0?'⏰ REMINDER!':o;if(f>10){clearInterval(t);document.title=o;}},600);}
   },item.interval*60000);
 }
@@ -1409,7 +1509,7 @@ function startOnceReminder(item,kind){
       if(!live){item.onceFired=true;save();return;}
       const lbl=kind==='mission'?`📅 "${item.text.slice(0,36)}" — do it RIGHT NOW!`:`📅 ${item.emoji} Time to: "${item.name}"!`;
       toast('📅',lbl);
-      if(Notification.permission==='granted')try{new Notification("DON'T QUIT 📅",{body:lbl,requireInteraction:true});}catch(e){}
+      if(Notification.permission==='granted')try{new Notification("SUPER DISCIPLINE 📅",{body:lbl,requireInteraction:true});}catch(e){}
       else{let f=0;const o=document.title;const t=setInterval(()=>{document.title=f++%2===0?'📅 REMINDER!':o;if(f>12){clearInterval(t);document.title=o;}},600);}
       item.onceFired=true;save();
       if(kind==='mission')renderM();else renderH();
@@ -1446,7 +1546,7 @@ function reqPerm(){
     if(p==='granted'){
       if(ps)ps.style.display='none';if(ts)ts.style.display='flex';
       toast('✅','Notifications ON! Reminders will fire at exactly the time you set.');
-      setTimeout(()=>{ try{new Notification("DON'T QUIT 🔥",{body:"✅ Notifications working! You're all set."});}catch(e){} },800);
+      setTimeout(()=>{ try{new Notification("SUPER DISCIPLINE 🔥",{body:"✅ Notifications working! You're all set."});}catch(e){} },800);
     }else{
       toast('⚠️','Notifications blocked. Go to browser settings → Allow this site.');
     }
@@ -1456,7 +1556,7 @@ function reqPerm(){
 function skipPerm(){document.getElementById('permModal').classList.remove('on');document.getElementById('e-pstrip').style.display='flex';}
 function testNow(){
   if(Notification.permission!=='granted'){toast('⚠️','Enable notifications first.');return;}
-  try{new Notification("DON'T QUIT 🔔",{body:"Test notification — working perfectly! ✅",requireInteraction:true});toast('🔔','Test sent! Check your notifications.');}
+  try{new Notification("SUPER DISCIPLINE 🔔",{body:"Test notification — working perfectly! ✅",requireInteraction:true});toast('🔔','Test sent! Check your notifications.');}
   catch(e){toast('⚠️','Error: '+e.message);}
 }
 
@@ -1492,21 +1592,6 @@ function confetti(){const C=['#FF5C2E','#FFBE00','#34D399','#38BDF8','#F43F5E','
 
 /* inject shake */
 const ss=document.createElement('style');ss.textContent='@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}';document.head.appendChild(ss);
-
-/* ═══ FIREBASE INIT ═══ */
-const firebaseConfig = {
-  apiKey: "AIzaSyAR0PkPT3Cj6txVDFPLAPzqnLG1qDFxyEI",
-  authDomain: "dont-quit-app.firebaseapp.com",
-  projectId: "dont-quit-app",
-  storageBucket: "dont-quit-app.firebasestorage.app",
-  messagingSenderId: "34902691138",
-  appId: "1:34902691138:web:77964d58543653f00b0cdb",
-  measurementId: "G-4PEG5JP1K5"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const auth = firebase.auth();
 
 /* ═══ FIREBASE SAVE/LOAD ═══ */
 let saveTimer = null;
@@ -1581,103 +1666,9 @@ function loadFromLocal() {
   } catch(e) {}
 }
 
-function showCloudStatus(msg) {
-  // Show subtle status in topbar
-  const el = document.getElementById('clk');
-  if (!el) return;
-  const orig = el.textContent;
-  el.textContent = msg;
-  el.style.color = 'var(--gr2)';
-  setTimeout(() => {
-    const n = new Date();
-    el.textContent = `${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
-    el.style.color = '';
-  }, 3000);
-}
 
-/* ═══ UPDATED AUTH — uses Firebase Auth ═══ */
-async function doSignIn() {
-  const em = document.getElementById('si-e').value.trim();
-  const pw = document.getElementById('si-p').value;
-  if (!em || !pw) { aErr('Please fill in all fields.'); return; }
-  try {
-    showCloudStatus('⏳ Signing in...');
-    await auth.signInWithEmailAndPassword(em, pw);
-    // onAuthStateChanged handles the rest
-  } catch(e) {
-    if (e.code === 'auth/user-not-found') aErr('No account found. Sign up first.');
-    else if (e.code === 'auth/wrong-password') aErr('Incorrect password.');
-    else if (e.code === 'auth/invalid-credential') aErr('Invalid email or password.');
-    else aErr(e.message);
-  }
-}
-
-async function doSignUp() {
-  const nm = document.getElementById('su-n').value.trim();
-  const em = document.getElementById('su-e').value.trim();
-  const pw = document.getElementById('su-p').value;
-  if (!nm || !em || !pw) { aErr('Please fill in all fields.'); return; }
-  if (pw.length < 6) { aErr('Password must be 6+ characters.'); return; }
-  try {
-    showCloudStatus('⏳ Creating account...');
-    const cred = await auth.createUserWithEmailAndPassword(em, pw);
-    await cred.user.updateProfile({ displayName: nm });
-    // onAuthStateChanged handles the rest
-  } catch(e) {
-    if (e.code === 'auth/email-already-in-use') aErr('Account exists. Sign in instead.');
-    else aErr(e.message);
-  }
-}
-
-async function googleLogin() {
-  try {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    await auth.signInWithPopup(provider);
-    // onAuthStateChanged handles the rest
-  } catch(e) {
-    if (e.code === 'auth/popup-blocked') {
-      aErr('Popup blocked. Please allow popups for this site and try again.');
-    } else {
-      aErr('Google sign in failed: ' + e.message);
-    }
-  }
-}
-
-function demoLogin() {
-  U = { name: 'Champion', email: 'demo@dontquit.app', pw: '', joined: 'Today' };
-  enter();
-}
-
-function signOut() {
-  auth.signOut().catch(()=>{});
-  U = null;
-  pClose();
-  document.getElementById('pg-app').classList.remove('on');
-  document.getElementById('pg-onboard').classList.add('on');
-  showObHero();
-}
-
-/* ═══ FIREBASE AUTH LISTENER ═══ */
-auth.onAuthStateChanged(async (firebaseUser) => {
-  if (firebaseUser) {
-    U = {
-      name: firebaseUser.displayName || firebaseUser.email.split('@')[0],
-      email: firebaseUser.email,
-      joined: new Date(firebaseUser.metadata.creationTime).toLocaleDateString('en-US', {month:'long', year:'numeric'}),
-      isGoogle: firebaseUser.providerData[0]?.providerId === 'google.com'
-    };
-    // Only enter if we're on the auth page
-    if (document.getElementById('pg-onboard').classList.contains('on')) {
-      document.getElementById('pg-onboard').classList.remove('on');
-      document.getElementById('pg-app').classList.add('on');
-      await load();
-      boot();
-    }
-  }
-});
-
-/* ═══ SESSION PERSIST (fallback) ═══ */
-try { const sv = sessionStorage.getItem('dq5s'); if(sv && !auth.currentUser) { U = JSON.parse(sv); } } catch(e) {}
+/* ═══ SESSION PERSIST ═══ */
+try { const sv = sessionStorage.getItem('dq5s'); if(sv) { U = JSON.parse(sv); } } catch(e) {}
 document.addEventListener('visibilitychange', () => { if(U) try { sessionStorage.setItem('dq5s', JSON.stringify(U)); } catch(e) {} });
 
 </script>
