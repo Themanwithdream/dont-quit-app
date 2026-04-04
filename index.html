@@ -130,35 +130,38 @@ input,textarea,select,button{font-family:var(--fh);-webkit-appearance:none;appea
 
 /* ── ONBOARDING ── */
 #pg-onboard{
-  display:flex;align-items:center;justify-content:center;
+  display:flex;align-items:flex-start;justify-content:center;
   background:
     radial-gradient(ellipse 100% 60% at 50% -5%,rgba(255,92,46,.18) 0%,transparent 65%),
     radial-gradient(ellipse 60% 40% at 80% 80%,rgba(124,58,237,.1) 0%,transparent 60%),
     var(--bg);
-  min-height:100vh;padding:40px 20px;padding-top:calc(var(--st) + 40px);
+  min-height:100vh;
+  padding:calc(var(--st) + 16px) 18px 24px;
+  box-sizing:border-box;
+  overflow-y:auto;
 }
-.ob-wrap{width:100%;max-width:560px;text-align:center;padding:0 8px}
+.ob-wrap{width:100%;max-width:480px;text-align:center;padding:0}
 .ob-flame{
-  width:84px;height:84px;border-radius:28px;margin:0 auto 20px;
+  width:60px;height:60px;border-radius:18px;margin:0 auto 12px;
   background:linear-gradient(145deg,var(--or),var(--gold));
-  display:flex;align-items:center;justify-content:center;font-size:42px;
-  box-shadow:0 16px 48px rgba(255,92,46,.45),0 0 0 1px rgba(255,92,46,.2);
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+  box-shadow:0 10px 32px rgba(255,92,46,.45),0 0 0 1px rgba(255,92,46,.2);
   animation:flamePulse 3s ease-in-out infinite;
 }
-@keyframes flamePulse{0%,100%{box-shadow:0 16px 48px rgba(255,92,46,.45),0 0 0 1px rgba(255,92,46,.2)}50%{box-shadow:0 20px 64px rgba(255,92,46,.65),0 0 0 1px rgba(255,92,46,.35)}}
-.ob-title{font-family:var(--fd);font-size:clamp(22px,5.5vw,68px);font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,#fff,rgba(255,255,255,.65));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
-.ob-sub{font-size:15px;color:var(--tx2);line-height:1.6;margin-bottom:20px}
-.ob-quote-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px 20px;margin-bottom:28px;text-align:left}
-.ob-quote-text{font-size:14px;color:rgba(255,255,255,.8);line-height:1.6;font-style:italic;margin-bottom:6px}
-.ob-quote-author{font-size:11px;color:var(--or);font-weight:700;letter-spacing:.8px;text-transform:uppercase}
-.ob-features{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;text-align:left}
-.ob-feat{display:flex;align-items:center;gap:14px;background:var(--c1);border:1px solid var(--ln);border-radius:16px;padding:14px 16px}
-.ob-feat-ico{font-size:24px;flex-shrink:0}
-.ob-feat-txt{font-size:13px;color:var(--tx2);line-height:1.4}
-.ob-feat-title{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:2px}
-.ob-card{background:var(--c1);border:1px solid var(--ln2);border-radius:26px;padding:28px 22px;box-shadow:0 28px 80px rgba(0,0,0,.5)}
-.ob-tabs{display:flex;background:var(--bg2);border-radius:13px;padding:4px;margin-bottom:22px;gap:4px}
-.ob-tab{flex:1;text-align:center;padding:10px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;color:var(--tx2);transition:all .18s}
+@keyframes flamePulse{0%,100%{box-shadow:0 10px 32px rgba(255,92,46,.45),0 0 0 1px rgba(255,92,46,.2)}50%{box-shadow:0 14px 44px rgba(255,92,46,.65),0 0 0 1px rgba(255,92,46,.35)}}
+.ob-title{font-family:var(--fd);font-size:clamp(20px,6vw,42px);font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,#fff,rgba(255,255,255,.65));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:5px;line-height:1.05;white-space:normal;word-break:break-word;width:100%}
+.ob-sub{font-size:13px;color:var(--tx2);line-height:1.5;margin-bottom:12px}
+.ob-quote-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:11px 15px;margin-bottom:14px;text-align:left}
+.ob-quote-text{font-size:12px;color:rgba(255,255,255,.8);line-height:1.5;font-style:italic;margin-bottom:4px}
+.ob-quote-author{font-size:10px;color:var(--or);font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.ob-features{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px;text-align:left}
+.ob-feat{display:flex;align-items:center;gap:9px;background:var(--c1);border:1px solid var(--ln);border-radius:13px;padding:10px 11px}
+.ob-feat-ico{font-size:18px;flex-shrink:0}
+.ob-feat-txt{font-size:11px;color:var(--tx2);line-height:1.3}
+.ob-feat-title{font-size:12px;font-weight:700;color:var(--tx);margin-bottom:1px}
+.ob-card{background:var(--c1);border:1px solid var(--ln2);border-radius:22px;padding:22px 18px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.ob-tabs{display:flex;background:var(--bg2);border-radius:11px;padding:3px;margin-bottom:16px;gap:3px}
+.ob-tab{flex:1;text-align:center;padding:9px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;color:var(--tx2);transition:all .18s}
 .ob-tab.on{background:var(--c3);color:var(--tx);box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .ob-err{background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.25);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--re);margin-bottom:14px;display:none}
 .ob-switch{text-align:center;font-size:13px;color:var(--tx2);margin-top:16px}
@@ -169,10 +172,12 @@ input,textarea,select,button{font-family:var(--fh);-webkit-appearance:none;appea
 /* ── DESKTOP / LAPTOP RESPONSIVE ── */
 @media (min-width: 768px) {
   .ob-wrap { max-width: 560px; }
-  .ob-sub { font-size: 16px; }
-  .ob-flame { width: 96px; height: 96px; font-size: 50px; border-radius: 32px; }
-  .ob-feat { padding: 16px 18px; }
+  .ob-sub { font-size: 14px; }
+  .ob-flame { width: 72px; height: 72px; font-size: 36px; border-radius: 22px; }
+  .ob-feat { padding: 12px 14px; }
   .ob-card { padding: 32px 28px; }
+  .ob-features { grid-template-columns: 1fr 1fr; }
+  .ob-title { font-size: clamp(24px, 4vw, 48px); }
 
   /* App shell wider on desktop */
   .wrap { max-width: 700px; margin: 0 auto; }
@@ -483,6 +488,17 @@ input[type="date"].dii:focus{border-color:var(--or)}
 /* ── CONFETTI ── */
 .cf{position:fixed;pointer-events:none;z-index:9996;width:8px;height:8px;border-radius:2px;animation:cff 1.6s ease-out forwards}
 @keyframes cff{from{opacity:1;transform:translateY(0) rotate(0)}to{opacity:0;transform:translateY(300px) rotate(720deg)}}
+/* ── DRAG REORDER ── */
+.mitem{cursor:grab}
+.mitem.dragging{opacity:.4;cursor:grabbing;background:var(--c3)}
+.mitem.drag-over{border-color:var(--or);background:rgba(255,92,46,.06)}
+.drag-handle{color:var(--tx3);font-size:14px;cursor:grab;padding:4px 2px;flex-shrink:0;touch-action:none}
+
+/* ── NOTE MODAL ── */
+#ne-cdots{display:flex;gap:8px;margin-bottom:10px}
+#noteModal .mbox{max-height:92vh;overflow-y:auto}
+#noteModal .ta{min-height:140px}
+
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 </style>
 </head>
@@ -526,6 +542,34 @@ input[type="date"].dii:focus{border-color:var(--or)}
   </div>
 </div>
 
+<!-- NOTE VIEW/EDIT MODAL -->
+<div class="modal" id="noteModal">
+  <div class="mbox" style="max-width:420px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div class="mbox-title" style="margin-bottom:0">📝 Edit Note</div>
+      <div style="display:flex;gap:8px">
+        <div style="color:var(--tx3);cursor:pointer;font-size:16px;padding:4px" onclick="closeNoteModal()">✕</div>
+      </div>
+    </div>
+    <div class="fld"><label>Accent Color</label>
+      <div class="cdots" id="ne-cdots">
+        <div class="cdot on" data-c="#FF5C2E" style="background:#FF5C2E"></div>
+        <div class="cdot" data-c="#7C3AED" style="background:#7C3AED"></div>
+        <div class="cdot" data-c="#059669" style="background:#059669"></div>
+        <div class="cdot" data-c="#FFBE00" style="background:#FFBE00"></div>
+        <div class="cdot" data-c="#0EA5E9" style="background:#0EA5E9"></div>
+        <div class="cdot" data-c="#F43F5E" style="background:#F43F5E"></div>
+      </div>
+    </div>
+    <div class="fld"><input class="fi" type="text" id="ne-title" placeholder="Note title..." maxlength="60"></div>
+    <div class="fld"><textarea class="ta" id="ne-body" rows="7" placeholder="Write anything..."></textarea></div>
+    <div style="display:flex;gap:9px;margin-top:4px">
+      <button class="btn b-re" style="flex:0 0 auto" onclick="deleteNoteFromModal()">🗑️</button>
+      <button class="btn b-vi bw" onclick="saveNoteEdit()">💾 Save Changes</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════ ONBOARDING PAGE ═══════════ -->
 <div class="pg on" id="pg-onboard">
   <div class="ob-wrap">
@@ -540,7 +584,7 @@ input[type="date"].dii:focus{border-color:var(--or)}
         <div class="ob-feat"><div class="ob-feat-ico">⏰</div><div><div class="ob-feat-title">Real Reminders</div><div class="ob-feat-txt">Get notified at your exact chosen time</div></div></div>
         <div class="ob-feat"><div class="ob-feat-ico">📊</div><div><div class="ob-feat-title">Progress Reports</div><div class="ob-feat-txt">See your weekly growth and earn badges</div></div></div>
       </div>
-      <button class="btn b-or bw" onclick="showAuthForm()" style="margin-bottom:12px">Get Started →</button>
+      <button class="btn b-or bw" onclick="showAuthForm()" style="margin-bottom:9px">Get Started →</button>
       <button class="btn b-gh bw" onclick="demoLogin()">⚡ Try Demo First</button>
     </div>
     <div id="ob-auth" style="display:none">
@@ -1040,8 +1084,40 @@ async function enter(){
   boot();
 }
 
+/* ═══ WEEK RESET ═══ */
+function checkWeekReset(){
+  // Store last-seen week number; reset weekCI on a new week
+  const now=new Date();
+  const startOfYear=new Date(now.getFullYear(),0,1);
+  const weekNum=Math.floor(((now-startOfYear)/86400000+startOfYear.getDay()+1)/7);
+  const weekKey=`dq5_week_${U?.email||'demo'}`;
+  const lastWeek=parseInt(localStorage.getItem(weekKey)||'0');
+  if(weekNum!==lastWeek){
+    weekCI=Array(7).fill(false);
+    localStorage.setItem(weekKey,weekNum);
+    save();
+  }
+}
+
+/* ═══ EVENT FIRED RESET ═══ */
+function resetFiredEvents(){
+  // If a future event got its fired flag stuck true (e.g. from a bug), clear it
+  const now=new Date();
+  let changed=false;
+  events.forEach(ev=>{
+    if(ev.fired){
+      const evDt=new Date(`${ev.date}T${ev.time}`);
+      if(evDt>now){ev.fired=false;changed=true;}
+    }
+  });
+  if(changed)save();
+}
+
 /* ═══ BOOT ═══ */
 function boot(){
+  // Auto-reset weekCI at the start of a new week (Sunday)
+  checkWeekReset();
+  resetFiredEvents();
   const init=(U.name||'U')[0].toUpperCase();
   document.getElementById('av').textContent=init;
   document.getElementById('pp-n').textContent=U.name||'Champion';
@@ -1262,20 +1338,20 @@ function delM(id){
 
 function renderM(){
   const el=document.getElementById('mstack');
-  const done=archived.filter(a=>a.done).length;
   const total=missions.length+archived.length;
   document.getElementById('mct').textContent=`${archived.length}/${total}`;
   const filtered=searchQ?missions.filter(m=>m.text.toLowerCase().includes(searchQ.toLowerCase())):missions;
   if(!filtered.length){
     el.innerHTML=`<div class="empty"><span class="eico">🎯</span><div class="empty-title">No missions yet</div>Add what you WILL accomplish today.</div>`;
-    return;
+    renderArchive();return;
   }
   el.innerHTML=filtered.map(m=>{
     const cat=cats.find(c=>c.id===m.cat)||cats[0]||{label:'📌 General',color:'#7A7A9A'};
     const rb=m.interval>0?`<span class="rbadge">⏰ Every ${fmtIv(m.interval)}</span>`:'';
     const ob=m.onceAt&&!m.onceFired?`<span class="rbadge" style="background:rgba(6,182,212,.1);color:var(--cy);border-color:rgba(6,182,212,.18)">📅 ${fmtOnce(m.onceAt)} · ${timeUntil(m.onceAt)}</span>`:'';
     const fb=m.onceFired?`<span class="rbadge" style="opacity:.5">✅ Reminded</span>`:'';
-    return `<div class="mitem">
+    return `<div class="mitem" draggable="true" data-id="${m.id}">
+      <div class="drag-handle" title="Drag to reorder">⠿</div>
       <div class="mcb" onclick="togM(${m.id})"></div>
       <div style="flex:1;min-width:0">
         <div class="mtxt">${esc(m.text)}</div>
@@ -1287,7 +1363,43 @@ function renderM(){
       <div class="mrm" onclick="delM(${m.id})">✕</div>
     </div>`;
   }).join('');
+  initDragReorder();
   renderArchive();
+}
+
+/* ═══ DRAG REORDER ═══ */
+function initDragReorder(){
+  const stack=document.getElementById('mstack');
+  let dragEl=null,dragId=null;
+  stack.querySelectorAll('.mitem[draggable]').forEach(item=>{
+    item.addEventListener('dragstart',e=>{
+      dragEl=item;dragId=parseInt(item.dataset.id);
+      setTimeout(()=>item.classList.add('dragging'),0);
+      e.dataTransfer.effectAllowed='move';
+    });
+    item.addEventListener('dragend',()=>{
+      item.classList.remove('dragging');
+      stack.querySelectorAll('.mitem').forEach(i=>i.classList.remove('drag-over'));
+      dragEl=null;
+    });
+    item.addEventListener('dragover',e=>{
+      e.preventDefault();
+      if(!dragEl||dragEl===item)return;
+      stack.querySelectorAll('.mitem').forEach(i=>i.classList.remove('drag-over'));
+      item.classList.add('drag-over');
+    });
+    item.addEventListener('drop',e=>{
+      e.preventDefault();
+      if(!dragEl||dragEl===item)return;
+      const targetId=parseInt(item.dataset.id);
+      const fromIdx=missions.findIndex(m=>m.id===dragId);
+      const toIdx=missions.findIndex(m=>m.id===targetId);
+      if(fromIdx<0||toIdx<0)return;
+      const [moved]=missions.splice(fromIdx,1);
+      missions.splice(toIdx,0,moved);
+      save();renderM();
+    });
+  });
 }
 
 function toggleArchive(){archVisible=!archVisible;document.getElementById('arch-section').style.display=archVisible?'block':'none';}
@@ -1358,9 +1470,17 @@ function togH(id){
   const h=habits.find(x=>x.id===id);if(!h)return;
   const today=new Date().toDateString();
   if(h.lastDone===today){toast('✅',`"${h.name}" done today! Keep the streak.`);return;}
+  // Check if streak is broken (missed a day)
+  if(h.lastDone){
+    const last=new Date(h.lastDone);const now=new Date();
+    const daysDiff=Math.floor((now-last)/(1000*60*60*24));
+    if(daysDiff>1){h.streak=0;}
+  }
   h.streak++;if(h.streak>h.best)h.best=h.streak;h.lastDone=today;
+  // Write to correct day-of-week slot (0=Sun…6=Sat)
   if(!h.history||h.history.length!==7)h.history=Array(7).fill(false);
-  h.history.shift();h.history.push(true);
+  const dayIdx=new Date().getDay();
+  h.history[dayIdx]=true;
   save();renderH();confetti();toast(h.emoji,`"${h.name}" done! Streak: ${h.streak} days 🔥`);
 }
 
@@ -1481,8 +1601,48 @@ function renderN(){
   const el=document.getElementById('ngrid');
   document.getElementById('nct').textContent=notes.length;
   if(!notes.length){el.innerHTML=`<div class="empty" style="grid-column:1/-1"><span class="eico">📝</span><div class="empty-title">No notes yet</div>Reflect, plan, commit.</div>`;return;}
-  el.innerHTML=[...notes].reverse().map(n=>`<div class="ncard"><div class="nbar" style="background:${n.color}"></div><div class="ntit">${esc(n.title)}</div><div class="nbody">${esc(n.body)}</div><div class="nfoot"><div class="ndate">${n.date}</div><div class="ndel" onclick="delN(${n.id})">✕</div></div></div>`).join('');
+  el.innerHTML=[...notes].reverse().map(n=>`<div class="ncard" onclick="openNoteModal(${n.id})"><div class="nbar" style="background:${n.color}"></div><div class="ntit">${esc(n.title)}</div><div class="nbody">${esc(n.body)}</div><div class="nfoot"><div class="ndate">${n.date}</div><div class="ndel" onclick="event.stopPropagation();delN(${n.id})">✕</div></div></div>`).join('');
 }
+
+/* ═══ NOTE MODAL ═══ */
+let editingNoteId=null;
+function openNoteModal(id){
+  const n=notes.find(x=>x.id===id);if(!n)return;
+  editingNoteId=id;
+  document.getElementById('ne-title').value=n.title==='Untitled'?'':n.title;
+  document.getElementById('ne-body').value=n.body;
+  // Set color dot
+  document.querySelectorAll('#ne-cdots .cdot').forEach(c=>{
+    c.classList.toggle('on',c.dataset.c===n.color);
+  });
+  document.getElementById('noteModal').classList.add('on');
+}
+function closeNoteModal(){
+  document.getElementById('noteModal').classList.remove('on');
+  editingNoteId=null;
+}
+function saveNoteEdit(){
+  if(!editingNoteId)return;
+  const n=notes.find(x=>x.id===editingNoteId);if(!n)return;
+  const title=document.getElementById('ne-title').value.trim();
+  const body=document.getElementById('ne-body').value.trim();
+  if(!title&&!body){toast('⚠️','Note is empty.');return;}
+  const activeColor=document.querySelector('#ne-cdots .cdot.on');
+  n.title=title||'Untitled';
+  n.body=body;
+  if(activeColor)n.color=activeColor.dataset.c;
+  n.date=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  save();renderN();closeNoteModal();
+  toast('📝','Note updated!');
+}
+function deleteNoteFromModal(){
+  if(!editingNoteId)return;
+  notes=notes.filter(x=>x.id!==editingNoteId);
+  save();renderN();syncStats();renderBadges();closeNoteModal();
+  toast('🗑️','Note deleted.');
+}
+document.getElementById('noteModal').addEventListener('click',function(e){if(e.target===this)closeNoteModal();});
+document.getElementById('ne-cdots').addEventListener('click',e=>{const c=e.target.closest('.cdot');if(!c)return;document.querySelectorAll('#ne-cdots .cdot').forEach(x=>x.classList.remove('on'));c.classList.add('on');});
 
 /* ═══ BADGES ═══ */
 function renderBadges(){
@@ -1496,13 +1656,16 @@ function renderBadges(){
 
 /* ═══ PROGRESS ═══ */
 function renderProgress(){
-  const done=archived.length;
-  const total=missions.length+archived.length;
-  const pct=total?Math.round((done/total)*100):0;
+  // Ring = today's completed missions vs all missions created today + still active
+  const todayStr=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  const doneToday=archived.filter(a=>a.archivedAt===todayStr).length;
+  const activeMissions=missions.length;
+  const totalToday=doneToday+activeMissions;
+  const pct=totalToday?Math.round((doneToday/totalToday)*100):0;
   const circ=226.2;
   document.getElementById('rpct').textContent=pct+'%';
   document.getElementById('rfl').style.strokeDashoffset=circ-(circ*pct/100);
-  document.getElementById('ris').textContent=total?`${done} of ${total} missions complete`:'Add missions on the Home tab.';
+  document.getElementById('ris').textContent=totalToday?`${doneToday} of ${totalToday} missions done today`:'Add missions on the Home tab.';
   document.getElementById('ps').textContent=streak;document.getElementById('pb').textContent=best;document.getElementById('pt').textContent=allDone;
   const days=['S','M','T','W','T','F','S'];
   const today=new Date().getDay();
